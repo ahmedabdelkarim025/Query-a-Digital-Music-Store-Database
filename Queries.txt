@@ -1,0 +1,60 @@
+/* Query 1:THE BEST 5 Customer*\
+
+select (c.FirstName || ' '|| c.LastName) AS "Customer Name",
+sum(i.Total) as "Invoices"
+from Invoice i
+join Customer c
+on i.CustomerId = c.CustomerId
+group by 1
+order by 2 desc
+LIMIT 5;
+
+**********
+
+\*Query 2:genre has the most  total of Tracks*/
+
+SELECT G.Name,
+count(T.TrackId) AS TOTAL
+FROM Genre G
+JOIN Track T
+ON G.GenreId = T.GenreId
+GROUP BY 1
+ORDER BY 2 DESC
+LIMIT 5;
+
+***************
+
+\*Query 3:Genre that achieved the largest number of sales*/
+
+SELECT G.Name,
+G.GenreId,
+count(*) AS TOTAL
+FROM Genre G
+JOIN Track T
+ON G.GenreId = T.GenreId
+JOIN InvoiceLine IL
+ON IL.TrackId = T.TrackId
+GROUP BY 1, 2
+ORDER BY 3 DESC
+LIMIT 5;
+
+*************
+
+\*Query 4:who have written the most rock music in our dataset*/
+
+SELECT AR.ArtistId,
+AR.Name,
+COUNT(*) AS songs
+FROM Genre G
+JOIN TRACK T
+ON G.GenreId = T.GenreId 
+JOIN Album A
+ON T.AlbumId = A.AlbumId
+JOIN Artist AR
+ON A.ArtistId = AR.ArtistId
+AND G.Name IN ('Rock')
+GROUP BY 1, 2
+ORDER BY 3 DESC
+LIMIT 5;
+
+**********
